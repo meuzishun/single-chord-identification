@@ -24,7 +24,7 @@ export const chordData = {
       midi: [0, 4, 7, 10],
     },
     V7_of_III: {
-      midi: [-10, 2, 5, 8],
+      midi: [-2, 2, 5, 8],
     },
     V7_of_VI: {
       midi: [3, 7, 10, 13],
@@ -60,13 +60,13 @@ export const chordData = {
       midi: [5, 8, 13, 17],
     },
     It_aug6th: {
-      midi: [-8, 0, 6, 12],
+      midi: [-4, 0, 6, 12],
     },
     Fr_aug6th: {
-      midi: [-8, 2, 6, 12],
+      midi: [-4, 2, 6, 12],
     },
     Gr_aug6th: {
-      midi: [-8, 3, 6, 12],
+      midi: [-4, 3, 6, 12],
     },
   },
   altered_dominants: {

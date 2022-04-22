@@ -1,11 +1,13 @@
 import { CheckBoxInput } from './components/checkbox-input.js';
 import { chordData } from '../../../chord-data.js';
 import { boundEventListeners } from '../bound-event-listeners.js';
+import { interaction } from './interaction.js';
 
 export const settings = (function () {
   const settings = document.createElement('section');
   settings.classList.add('settings-section');
 
+  // Create all the checkboxes
   for (const [key, values] of Object.entries(chordData)) {
     const chordSubCategory = document.createElement('fieldset');
     const legend = document.createElement('legend');
@@ -17,7 +19,7 @@ export const settings = (function () {
 
     for (const key of Object.keys(values)) {
       const checkbox = new CheckBoxInput(
-        key.replace(/_of_/g, '/').replace(/_/g, ' '),
+        key.replace(/_of_/g, '/').replace(/_/g, ' ').replace(/aug/, '+'),
         key,
         key,
         key
@@ -29,14 +31,8 @@ export const settings = (function () {
   }
 
   const handleSettingsChange = function (e) {
-    console.clear();
-    const category = e.target.parentElement.parentElement.classList[1];
     const checkedBoxes = [...e.currentTarget.querySelectorAll('input:checked')];
-    const values = checkedBoxes.map((box) => box.value);
-    values.forEach((val) => {
-      console.log(chordData[category][val].midi);
-      //TODO: do something with midi numbers
-    });
+    interaction.renderBtns(checkedBoxes);
   };
 
   settings.addEventListener(

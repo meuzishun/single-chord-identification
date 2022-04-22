@@ -38,7 +38,7 @@ export class Sequencer {
 
   playSequence(name) {
     this.#sequences[name].start();
-    console.log(this.#sequences[name]);
+    // console.log(this.#sequences[name]);
   }
 
   getSequences() {

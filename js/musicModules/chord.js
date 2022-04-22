@@ -1,14 +1,14 @@
 import { Note } from './note.js';
 
 export class Chord {
-  #nomalizedMidi;
+  #normalizedMidi;
   #notes;
   #initialVoicing;
   #voicings;
 
   constructor(normalizedMidi) {
     //? Should we ensure that normalizedMidi is an array?
-    this.#nomalizedMidi = normalizedMidi;
+    this.#normalizedMidi = normalizedMidi;
     this.init();
     this.#voicings = [];
     this.#createInitialVoicing();
@@ -16,11 +16,11 @@ export class Chord {
   }
 
   getNormalizedMidi() {
-    return this.#nomalizedMidi;
+    return this.#normalizedMidi;
   }
 
   init() {
-    this.#notes = this.#nomalizedMidi.map((midi) => new Note(midi));
+    this.#notes = this.#normalizedMidi.map((midi) => new Note(midi));
   }
 
   getNotes() {
@@ -29,7 +29,10 @@ export class Chord {
 
   #createInitialVoicing() {
     this.#initialVoicing = this.#notes.map((note) => note.down8ves(1));
-    this.#initialVoicing.push(this.#notes[0].getMidiNumber());
+    //TODO: normalized midi voicing length... if 3, do this ->
+    if (this.#normalizedMidi.length === 3) {
+      this.#initialVoicing.push(this.#notes[0].getMidiNumber());
+    }
     return this.#initialVoicing;
   }
 
@@ -51,6 +54,7 @@ export class Chord {
       this.#voicings.push(voicing2);
       prev = voicing1;
     }
+    this.#voicings.splice(2, 1);
   }
 
   getVoicings() {

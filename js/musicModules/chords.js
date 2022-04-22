@@ -1,105 +1,95 @@
 import { Chord } from './chord.js';
 import { Progression } from './progression.js';
 
-const majorTonicTriad = new Chord([0, 4, 7]);
-// majorTonicTriad.createInitialVoicing();
-// majorTonicTriad.createVoicings();
+export const chords = (function () {
+  const choices = {};
+  const majorOnly = {};
+  const minorOnly = {};
 
-const majorSuperTonicTriad = new Chord([2, 5, 9]);
-// majorSuperTonicTriad.createInitialVoicing();
-// majorSuperTonicTriad.createVoicings();
+  const addChord = function (category, name, midi) {
+    const chord = new Chord(midi);
+    choices[name] = chord;
+    if (
+      (category === 'major_secondary_dominants' && name !== 'V7_of_V') ||
+      category === 'modal_borrowing_1' ||
+      category === 'modal_borrowing_2' ||
+      category === 'altered_dominants'
+    ) {
+      majorOnly[name] = chord;
+    }
+    if (category === 'minor_secondary_dominants') {
+      minorOnly[name] = chord;
+    }
+  };
 
-const majorMediantTriad = new Chord([4, 7, 11]);
-// majorMediantTriad.createInitialVoicing();
-// majorMediantTriad.createVoicings();
+  const getRandomChoice = function () {
+    const chords = Object.keys(choices);
+    const key = chords[Math.floor(Math.random() * chords.length)];
+    return { chord: choices[key], key };
+  };
 
-const majorSubdominantTriad = new Chord([-7, -3, 0]);
-// majorSubdominantTriad.createInitialVoicing();
-// majorSubdominantTriad.createVoicings();
+  const findCategory = function (key) {
+    if (majorOnly.hasOwnProperty(key)) {
+      return 'majorOnly';
+    }
+    if (minorOnly.hasOwnProperty(key)) {
+      return 'minorOnly';
+    }
+    return ['majorOnly', 'minorOnly'][Math.floor(Math.random() * 2)];
+  };
 
-const majorDominantTriad = new Chord([-5, -1, 2]);
-// majorDominantTriad.createInitialVoicing();
-// majorDominantTriad.createVoicings();
+  const clearChoices = function () {
+    for (const key in choices) {
+      delete choices[key];
+    }
+    for (const key in majorOnly) {
+      delete majorOnly[key];
+    }
+    for (const key in minorOnly) {
+      delete minorOnly[key];
+    }
+  };
 
-const majorSubmediantTriad = new Chord([-3, 0, 4]);
-// majorSubmediantTriad.createInitialVoicing();
-// majorSubmediantTriad.createVoicings();
-
-const majorLeadingToneTriad = new Chord([-1, 2, 5]);
-// majorLeadingToneTriad.createInitialVoicing();
-// majorLeadingToneTriad.createVoicings();
-
-console.log(majorLeadingToneTriad.getVoicings());
-
-export const chords = {
-  // tonicTriads: [
-  //   [-12, -8, -5, 0],
-  //   [-12, -5, 0, 4],
-  //   [-12, 0, 4, 7],
-  //   [-12, 4, 7, 12],
-  //   [-12, -8, 0, 7],
-  //   [-12, -5, 4, 12],
-  //   [-12, 0, 7, 16],
-  //   [-12, 4, 12, 19],
-  // ],
-  tonicTriads: majorTonicTriad.getVoicings(),
-  superTonicTriads: majorSuperTonicTriad.getVoicings(),
-  mediantTriads: majorMediantTriad.getVoicings(),
-  subdominantTriads: majorSubdominantTriad.getVoicings(),
-  dominantTriads: majorDominantTriad.getVoicings(),
-  submediantTriads: majorSubmediantTriad.getVoicings(),
-  leadingToneTriads: majorLeadingToneTriad.getVoicings(),
-
-  // superTonicTriads: [
-  //   [-10, -7, -3, 2],
-  //   [-10, -3, 2, 5],
-  //   [-10, 2, 5, 9],
-  //   [-10, 5, 9, 14],
-  //   [-10, -7, 2, 9],
-  //   [-10, -3, 5, 14],
-  //   [-10, 2, 9, 17],
-  //   [-10, 5, 14, 21],
-  // ],
-
-  // dominantTriads: [
-  //   [-17, -10, -5, -1],
-  //   [-17, -5, -1, 2],
-  //   [-17, -1, 2, 7],
-  //   [-17, 2, 7, 11],
-  //   [-17, -10, -1, 7],
-  //   [-17, -5, 2, 11],
-  //   [-17, -1, 7, 14],
-  //   [-17, 2, 11, 19],
-  // ],
-
-  tonicizingProgression: [
+  const majorTonicizingProgression = [
     [-12, -5, 0, 4],
     [-19, -3, 0, 5],
     [-17, -5, 0, 4],
     [-17, -7, -1, 2],
     [-24, -8, -5, 0],
-  ],
+  ];
 
-  tempTonicizingProg: [
-    [-12, -5, 0, 4],
-    [-19, -3, 0, 5],
-    [-17, -5, 0, 4],
+  const minorTonicizingProgression = [
+    [-12, -5, 0, 3],
+    [-19, -4, 0, 5],
+    [-17, -5, 0, 3],
     [-17, -7, -1, 2],
-    [-24, -8, -5, 0],
-  ],
+    [-24, -9, -5, 0],
+  ];
 
-  tonicizingProgression: (function () {
-    const midis = [
-      [-12, -5, 0, 4],
-      [-19, -3, 0, 5],
-      [-17, -5, 0, 4],
-      [-17, -7, -1, 2],
-      [-24, -8, -5, 0],
-    ];
+  // const tonicizingProgression = (function () {
+  //   const midis = [
+  //     [-12, -5, 0, 4],
+  //     [-19, -3, 0, 5],
+  //     [-17, -5, 0, 4],
+  //     [-17, -7, -1, 2],
+  //     [-24, -8, -5, 0],
+  //   ];
 
-    const progression = new Progression();
-    midis.forEach((midi) => progression.addChord(midi));
+  //   const progression = new Progression();
+  //   midis.forEach((midi) => progression.addChord(midi));
 
-    return progression;
-  })(),
-};
+  //   return progression;
+  // })();
+
+  return {
+    choices,
+    majorOnly,
+    minorOnly,
+    addChord,
+    getRandomChoice,
+    findCategory,
+    clearChoices,
+    majorTonicizingProgression,
+    minorTonicizingProgression,
+  };
+})();
