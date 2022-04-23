@@ -8,7 +8,7 @@ export const Piano = (function () {
   const loadPianoSamples = function () {
     sampler.setExpectedLoad(88);
     for (let i = 0; i < 88; i++) {
-      sampler.addSample(`midi-${21 + i}`, `audio/midi-piano-${21 + i}.mp3`);
+      sampler.addSample(`midi-${21 + i}`, `./audio/midi-piano-${21 + i}.mp3`);
     }
   };
 
