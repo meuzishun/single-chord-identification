@@ -1,5 +1,5 @@
 import { Button } from './components/button.js';
-import { chordData } from '../../../chord-data.js';
+import { chordData } from '../../musicModules/chord-data.js';
 import { boundEventListeners } from '../bound-event-listeners.js';
 import { chords } from '../../musicModules/chords.js';
 import { Piano } from '../../audio-modules/piano-instrument.js';

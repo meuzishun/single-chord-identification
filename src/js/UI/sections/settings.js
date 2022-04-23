@@ -1,5 +1,5 @@
 import { CheckBoxInput } from './components/checkbox-input.js';
-import { chordData } from '../../../chord-data.js';
+import { chordData } from '../../musicModules/chord-data.js';
 import { boundEventListeners } from '../bound-event-listeners.js';
 import { interaction } from './interaction.js';
 
