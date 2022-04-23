@@ -5,6 +5,7 @@ import { chords } from '../../musicModules/chords.js';
 import { Piano } from '../../audio-modules/piano-instrument.js';
 import { ScheduleData } from '../../audio-modules/schedule-data.js';
 import { PitchData } from '../../audio-modules/pitch-data.js';
+import { tonicControl } from './components/tonic-control.js';
 import { footer } from './footer.js';
 
 export const interaction = (function () {
@@ -76,12 +77,18 @@ export const interaction = (function () {
 
   Piano.sequencer.addSequence(
     'major-tonicizing-progression',
-    new PitchData(chords.majorTonicizingProgression, 60),
+    new PitchData(
+      chords.majorTonicizingProgression,
+      tonicControl.getSelection()
+    ),
     constantWithLongFinal
   );
   Piano.sequencer.addSequence(
     'minor-tonicizing-progression',
-    new PitchData(chords.minorTonicizingProgression, 60),
+    new PitchData(
+      chords.minorTonicizingProgression,
+      tonicControl.getSelection()
+    ),
     constantWithLongFinal
   );
 
@@ -102,7 +109,10 @@ export const interaction = (function () {
         // Piano.sequencer.playSequence('major-tonicizing-progression');
         Piano.sequencer.addSequence(
           'tonicizing-progression',
-          new PitchData(chords.majorTonicizingProgression, 60),
+          new PitchData(
+            chords.majorTonicizingProgression,
+            tonicControl.getSelection()
+          ),
           constantWithLongFinal
         );
       }
@@ -110,7 +120,10 @@ export const interaction = (function () {
         // Piano.sequencer.playSequence('minor-tonicizing-progression');
         Piano.sequencer.addSequence(
           'tonicizing-progression',
-          new PitchData(chords.minorTonicizingProgression, 60),
+          new PitchData(
+            chords.minorTonicizingProgression,
+            tonicControl.getSelection()
+          ),
           constantWithLongFinal
         );
       }
@@ -118,7 +131,10 @@ export const interaction = (function () {
       const randomVoicing =
         voicings[Math.floor(Math.random() * voicings.length)];
       console.log(randomVoicing);
-      const pitchData = new PitchData([randomVoicing], 60);
+      const pitchData = new PitchData(
+        [randomVoicing],
+        tonicControl.getSelection()
+      );
       Piano.sequencer.addSequence('random-choice', pitchData, longHold);
 
       Piano.sequencer.playSequence('tonicizing-progression');
