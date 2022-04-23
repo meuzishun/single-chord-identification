@@ -43,7 +43,11 @@ export const tonicControl = (function () {
   let selection = 60;
 
   const changeSelection = function (e) {
-    selection = Number(e.target.selectedOptions[0].value);
+    if (e.target.selectedOptions[0].value === 'random') {
+      selection = Math.floor(Math.random() * 12) + 57;
+    } else {
+      selection = Number(e.target.selectedOptions[0].value);
+    }
   };
 
   const getSelection = function () {
