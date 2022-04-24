@@ -32,7 +32,6 @@ export const settings = (function () {
   }
 
   settings.appendChild(tonicControl.HTML);
-  console.log(tonicControl.getSelection());
 
   const handleSettingsChange = function (e) {
     const checkedBoxes = [...e.currentTarget.querySelectorAll('input:checked')];
