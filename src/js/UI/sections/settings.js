@@ -1,7 +1,8 @@
 import { CheckBoxInput } from './components/checkbox-input.js';
-import { chordData } from '../../../chord-data.js';
+import { chordData } from '../../musicModules/chord-data.js';
 import { boundEventListeners } from '../bound-event-listeners.js';
 import { interaction } from './interaction.js';
+import { tonicControl } from './components/tonic-control.js';
 
 export const settings = (function () {
   const settings = document.createElement('section');
@@ -29,6 +30,8 @@ export const settings = (function () {
 
     settings.appendChild(chordSubCategory);
   }
+
+  settings.appendChild(tonicControl.HTML);
 
   const handleSettingsChange = function (e) {
     const checkedBoxes = [...e.currentTarget.querySelectorAll('input:checked')];

@@ -1,10 +1,11 @@
 import { Button } from './components/button.js';
-import { chordData } from '../../../chord-data.js';
+import { chordData } from '../../musicModules/chord-data.js';
 import { boundEventListeners } from '../bound-event-listeners.js';
 import { chords } from '../../musicModules/chords.js';
 import { Piano } from '../../audio-modules/piano-instrument.js';
 import { ScheduleData } from '../../audio-modules/schedule-data.js';
 import { PitchData } from '../../audio-modules/pitch-data.js';
+import { tonicControl } from './components/tonic-control.js';
 import { footer } from './footer.js';
 
 export const interaction = (function () {
@@ -65,23 +66,30 @@ export const interaction = (function () {
     otherBtns.appendChild(tonicizationBtn);
   };
 
+  const interpretTonicSelection = function () {
+    let val = tonicControl.getSelection();
+    val = val === 'random' ? Math.floor(Math.random() * 12) + 57 : val;
+    console.log(val);
+    return val;
+  };
+
   createRandomChordBtn();
   createPlayAgainBtn();
   createTonicizationBtn();
 
   let answer = undefined;
-
+  let tonic = interpretTonicSelection();
   const longHold = new ScheduleData([4], 'hold');
   const constantWithLongFinal = new ScheduleData([1], 'hold', 4);
 
   Piano.sequencer.addSequence(
     'major-tonicizing-progression',
-    new PitchData(chords.majorTonicizingProgression, 60),
+    new PitchData(chords.majorTonicizingProgression, tonic),
     constantWithLongFinal
   );
   Piano.sequencer.addSequence(
     'minor-tonicizing-progression',
-    new PitchData(chords.minorTonicizingProgression, 60),
+    new PitchData(chords.minorTonicizingProgression, tonic),
     constantWithLongFinal
   );
 
@@ -93,6 +101,7 @@ export const interaction = (function () {
 
   const handleBtnClick = function (e) {
     if (e.target.classList.contains('random-chord-btn')) {
+      tonic = interpretTonicSelection();
       footer.clearFeedback();
       const { chord, key } = chords.getRandomChoice();
       console.log(key);
@@ -102,7 +111,7 @@ export const interaction = (function () {
         // Piano.sequencer.playSequence('major-tonicizing-progression');
         Piano.sequencer.addSequence(
           'tonicizing-progression',
-          new PitchData(chords.majorTonicizingProgression, 60),
+          new PitchData(chords.majorTonicizingProgression, tonic),
           constantWithLongFinal
         );
       }
@@ -110,7 +119,7 @@ export const interaction = (function () {
         // Piano.sequencer.playSequence('minor-tonicizing-progression');
         Piano.sequencer.addSequence(
           'tonicizing-progression',
-          new PitchData(chords.minorTonicizingProgression, 60),
+          new PitchData(chords.minorTonicizingProgression, tonic),
           constantWithLongFinal
         );
       }
@@ -118,7 +127,7 @@ export const interaction = (function () {
       const randomVoicing =
         voicings[Math.floor(Math.random() * voicings.length)];
       console.log(randomVoicing);
-      const pitchData = new PitchData([randomVoicing], 60);
+      const pitchData = new PitchData([randomVoicing], tonic);
       Piano.sequencer.addSequence('random-choice', pitchData, longHold);
 
       Piano.sequencer.playSequence('tonicizing-progression');
