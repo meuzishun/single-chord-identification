@@ -35,6 +35,7 @@ export const interaction = (function () {
     chords.clearChoices();
     checkedBoxes.forEach((box) => {
       const category = box.parentElement.parentElement.classList[1];
+      console.log(category);
       const btnText = box.id.replace(/_of_/g, '/');
       const btnClasses = `chordBtn, ${box.value}`;
       const btnData = box.value;
@@ -107,6 +108,7 @@ export const interaction = (function () {
       console.log(key);
       answer = key;
       const category = chords.findCategory(key);
+      console.log({ answer, category });
       if (category === 'majorOnly') {
         // Piano.sequencer.playSequence('major-tonicizing-progression');
         Piano.sequencer.addSequence(

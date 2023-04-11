@@ -10,16 +10,24 @@ export const chords = (function () {
     const chord = new Chord(midi);
     choices[name] = chord;
     if (
-      (category === 'major_secondary_dominants' && name !== 'V7_of_V') ||
+      category === 'major_diatonic' ||
+      category === 'major_inversions' ||
+      // (category === 'major_secondary_dominants' && name !== 'V7_of_V') ||
+      category === 'major_secondary_dominants' ||
       category === 'modal_borrowing_1' ||
       category === 'modal_borrowing_2' ||
       category === 'altered_dominants'
     ) {
       majorOnly[name] = chord;
     }
-    if (category === 'minor_secondary_dominants') {
+    if (
+      category === 'minor_diatonic' ||
+      category === 'minor_inversions' ||
+      category === 'minor_secondary_dominants'
+    ) {
       minorOnly[name] = chord;
     }
+    console.table({ choices, majorOnly, minorOnly });
   };
 
   const getRandomChoice = function () {

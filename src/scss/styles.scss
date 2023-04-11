@@ -24,11 +24,13 @@ html {
   gap: 0.5rem;
 
   fieldset {
+    flex: 1;
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.5rem;
     font-size: 1.5rem;
     text-transform: capitalize;
 
@@ -39,6 +41,10 @@ html {
       text-transform: none;
       margin-left: 0.5rem;
     }
+
+    // #V7_of_v + label {
+    //   text-transform: capitalize;
+    // }
   }
 }
 
