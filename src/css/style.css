@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.settings-section {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 1rem;
+  gap: 0.5rem;
+}
+.settings-section fieldset {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+.settings-section fieldset label {
+  text-transform: none;
+  margin-left: 0.5rem;
+}
+
+.interaction-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.interaction-section button {
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+.interaction-section .other-btns {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+.interaction-section .answer-btns {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer {
+  margin: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+}
+
+/*# sourceMappingURL=style.css.map */
