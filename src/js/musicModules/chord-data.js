@@ -1,4 +1,24 @@
 export const chordData = {
+  major_diatonic: {
+    I: {
+      midi: [0, 4, 7, 12],
+    },
+    ii: {
+      midi: [2, 5, 9, 14],
+    },
+    iii: {
+      midi: [4, 7, 11, 16],
+    },
+    IV: {
+      midi: [-7, -3, 0, 5],
+    },
+    V: {
+      midi: [-5, -1, 2, 7],
+    },
+    vi: {
+      midi: [-3, 0, 4, 9],
+    },
+  },
   major_secondary_dominants: {
     V7_of_V: {
       midi: [2, 6, 9, 12],
