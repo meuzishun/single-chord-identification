@@ -8,11 +8,35 @@ export const settings = (function () {
   const settings = document.createElement('section');
   settings.classList.add('settings-section');
 
+  const toggleSelectAll = function (e) {
+    const title = e.target;
+    const parent = title.parentElement;
+    const settingsSection = parent.parentElement;
+    const inputContainers = [...parent.children];
+    inputContainers.shift();
+    console.log(inputContainers);
+    const inputs = inputContainers.map(
+      (inputContainer) => inputContainer.children[0]
+    );
+    if (inputs.every((input) => input.checked)) {
+      inputs.forEach((input) => {
+        input.checked = false;
+      });
+    } else {
+      inputs.forEach((input) => {
+        input.checked = true;
+      });
+    }
+    const checkedBoxes = [...settingsSection.querySelectorAll('input:checked')];
+    interaction.renderBtns(checkedBoxes);
+  };
+
   // Create all the checkboxes
   for (const [key, values] of Object.entries(chordData)) {
     const chordSubCategory = document.createElement('fieldset');
     const legend = document.createElement('legend');
     legend.textContent = key.replace(/_/g, ' ');
+    legend.addEventListener('click', toggleSelectAll);
 
     chordSubCategory.appendChild(legend);
     chordSubCategory.classList.add('chord-sub-category');

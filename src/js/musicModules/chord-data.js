@@ -1,4 +1,99 @@
 export const chordData = {
+  major_diatonic: {
+    I: {
+      midi: [0, 4, 7, 12],
+    },
+    ii: {
+      midi: [2, 5, 9, 14],
+    },
+    iii: {
+      midi: [4, 7, 11, 16],
+    },
+    IV: {
+      midi: [-7, -3, 0, 5],
+    },
+    V: {
+      midi: [-5, -1, 2, 7],
+    },
+    vi: {
+      midi: [-3, 0, 4, 9],
+    },
+  },
+  major_inversions: {
+    I6: {
+      midi: [4, 7, 12, 19],
+    },
+    I64: {
+      midi: [-5, 0, 4, 7],
+    },
+    ii6: {
+      midi: [-7, -3, 2, 5],
+    },
+    IV6: {
+      midi: [-3, 0, 5, 12],
+    },
+    IV64: {
+      midi: [0, 5, 9, 12],
+    },
+    V6: {
+      midi: [-1, 2, 7, 14],
+    },
+    V64: {
+      midi: [2, 7, 11, 14],
+    },
+    viiº6: {
+      midi: [2, 5, 11, 14],
+    },
+  },
+  minor_diatonic: {
+    i: {
+      midi: [0, 3, 7, 12],
+    },
+    iiº: {
+      midi: [2, 5, 8, 14],
+    },
+    III: {
+      midi: [3, 7, 10, 15],
+    },
+    iv: {
+      midi: [-7, -4, 0, 5],
+    },
+    v: {
+      midi: [-5, -1, 2, 7],
+    },
+    VI: {
+      midi: [-4, 0, 3, 8],
+    },
+    VII: {
+      midi: [-2, 2, 5, 10],
+    },
+  },
+  minor_inversions: {
+    i6: {
+      midi: [3, 7, 12, 19],
+    },
+    i64: {
+      midi: [-5, 0, 3, 7],
+    },
+    iiº6: {
+      midi: [-7, -4, 2, 5],
+    },
+    iv6: {
+      midi: [-4, 0, 5, 12],
+    },
+    iv64: {
+      midi: [0, 5, 8, 12],
+    },
+    v6: {
+      midi: [-1, 2, 7, 14],
+    },
+    v64: {
+      midi: [2, 7, 11, 14],
+    },
+    viiº6: {
+      midi: [2, 5, 11, 14],
+    },
+  },
   major_secondary_dominants: {
     V7_of_V: {
       midi: [2, 6, 9, 12],
@@ -17,9 +112,9 @@ export const chordData = {
     },
   },
   minor_secondary_dominants: {
-    // V7_of_V: {
-    //   midi: [2, 6, 9, 12],
-    // },
+    V7_of_v: {
+      midi: [2, 6, 9, 12],
+    },
     V7_of_iv: {
       midi: [0, 4, 7, 10],
     },
