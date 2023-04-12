@@ -70,19 +70,19 @@ export const chordData = {
   },
   minor_inversions: {
     i6: {
-      midi: [4, 7, 12, 19],
+      midi: [3, 7, 12, 19],
     },
     i64: {
-      midi: [-5, 0, 4, 7],
+      midi: [-5, 0, 3, 7],
     },
     iiº6: {
-      midi: [-7, -3, 2, 5],
+      midi: [-7, -4, 2, 5],
     },
     iv6: {
-      midi: [-3, 0, 5, 12],
+      midi: [-4, 0, 5, 12],
     },
     iv64: {
-      midi: [0, 5, 9, 12],
+      midi: [0, 5, 8, 12],
     },
     v6: {
       midi: [-1, 2, 7, 14],

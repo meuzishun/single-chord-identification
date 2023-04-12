@@ -26,24 +26,41 @@ export const interaction = (function () {
     answerBtns.appendChild(btn);
   };
 
+  const removeButton = function (button) {};
+
   const clearBtns = function () {
     answerBtns.textContent = '';
   };
 
+  const registerSelectedBox = function (box) {
+    const category = box.parentElement.parentElement.classList[1];
+    console.log(category);
+    const btnText = box.id.replace(/_of_/g, '/');
+    const btnClasses = `chordBtn, ${box.value}`;
+    const btnData = box.value;
+
+    addButton(btnText, btnClasses, { chord: btnData, category });
+
+    chords.addChord(category, btnData, chordData[category][btnData].midi);
+  };
+
+  const unregisterUnselectedBox = function (box) {
+    const category = box.parentElement.parentElement.classList[1];
+    console.log(category);
+    // const btnText = box.id.replace(/_of_/g, '/');
+    // const btnClasses = `chordBtn, ${box.value}`;
+    // const btnData = box.value;
+
+    // removeButton(btnText, btnClasses, { chord: btnData, category });
+
+    // chords.removeChord(category, btnData, chordData[category][btnData].midi);
+  };
+
   const renderBtns = function (checkedBoxes) {
+    console.log(checkedBoxes);
     clearBtns();
     chords.clearChoices();
-    checkedBoxes.forEach((box) => {
-      const category = box.parentElement.parentElement.classList[1];
-      console.log(category);
-      const btnText = box.id.replace(/_of_/g, '/');
-      const btnClasses = `chordBtn, ${box.value}`;
-      const btnData = box.value;
-
-      addButton(btnText, btnClasses, { chord: btnData, category });
-
-      chords.addChord(category, btnData, chordData[category][btnData].midi);
-    });
+    checkedBoxes.forEach((box) => registerSelectedBox(box));
   };
 
   const createRandomChordBtn = function () {
@@ -165,6 +182,7 @@ export const interaction = (function () {
 
   return {
     HTML: interaction,
+    registerSelectedBox,
     renderBtns,
   };
 })();
