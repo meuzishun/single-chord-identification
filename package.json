@@ -1,0 +1,21 @@
+{
+  "name": "single-chord-identification",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch-sass": "sass --watch src/scss/styles.scss src/css/style.css",
+    "devstart": "npm run watch-sass"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meuzishun/single-chord-identification.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meuzishun/single-chord-identification/issues"
+  },
+  "homepage": "https://github.com/meuzishun/single-chord-identification#readme"
+}
