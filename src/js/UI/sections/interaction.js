@@ -127,7 +127,6 @@ export const interaction = (function () {
       const category = chords.findCategory(key);
       console.log({ answer, category });
       if (category === 'majorOnly') {
-        // Piano.sequencer.playSequence('major-tonicizing-progression');
         Piano.sequencer.addSequence(
           'tonicizing-progression',
           new PitchData(chords.majorTonicizingProgression, tonic),
@@ -135,7 +134,6 @@ export const interaction = (function () {
         );
       }
       if (category === 'minorOnly') {
-        // Piano.sequencer.playSequence('minor-tonicizing-progression');
         Piano.sequencer.addSequence(
           'tonicizing-progression',
           new PitchData(chords.minorTonicizingProgression, tonic),
