@@ -47,13 +47,6 @@ export const interaction = (function () {
   const unregisterUnselectedBox = function (box) {
     const category = box.parentElement.parentElement.classList[1];
     console.log(category);
-    // const btnText = box.id.replace(/_of_/g, '/');
-    // const btnClasses = `chordBtn, ${box.value}`;
-    // const btnData = box.value;
-
-    // removeButton(btnText, btnClasses, { chord: btnData, category });
-
-    // chords.removeChord(category, btnData, chordData[category][btnData].midi);
   };
 
   const renderBtns = function (checkedBoxes) {
