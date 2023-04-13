@@ -1,0 +1,18 @@
+button {
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+
+.other-btns {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+
+.answer-btns {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
