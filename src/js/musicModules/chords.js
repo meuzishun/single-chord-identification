@@ -74,21 +74,6 @@ export const chords = (function () {
     [-24, -9, -5, 0],
   ];
 
-  // const tonicizingProgression = (function () {
-  //   const midis = [
-  //     [-12, -5, 0, 4],
-  //     [-19, -3, 0, 5],
-  //     [-17, -5, 0, 4],
-  //     [-17, -7, -1, 2],
-  //     [-24, -8, -5, 0],
-  //   ];
-
-  //   const progression = new Progression();
-  //   midis.forEach((midi) => progression.addChord(midi));
-
-  //   return progression;
-  // })();
-
   return {
     choices,
     majorOnly,
