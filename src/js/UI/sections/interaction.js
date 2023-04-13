@@ -77,11 +77,16 @@ export const interaction = (function () {
     otherBtns.appendChild(tonicizationBtn);
   };
 
+  const getRandomOffset = function (offset) {
+    if (typeof offset !== 'number') {
+      throw Error('Offset must be a number');
+    }
+    return Math.floor(Math.random() * 12) + offset;
+  };
+
   const interpretTonicSelection = function () {
     let val = tonicControl.getSelection();
-    val = val === 'random' ? Math.floor(Math.random() * 12) + 57 : val;
-    console.log(val);
-    return val;
+    return val === 'random' ? getRandomOffset(57) : val;
   };
 
   createRandomChordBtn();
