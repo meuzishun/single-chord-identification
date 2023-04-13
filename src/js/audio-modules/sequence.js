@@ -11,7 +11,6 @@ export class Sequence {
     this.#scheduleData = scheduleData;
     this.#sequencer = sequencer;
     this.#audioEvents = [];
-    // this.#createAudioEvents();
   }
 
   #createAudioEvents() {
