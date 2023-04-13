@@ -12,7 +12,6 @@ export const chords = (function () {
     if (
       category === 'major_diatonic' ||
       category === 'major_inversions' ||
-      // (category === 'major_secondary_dominants' && name !== 'V7_of_V') ||
       category === 'major_secondary_dominants' ||
       category === 'modal_borrowing_1' ||
       category === 'modal_borrowing_2' ||
