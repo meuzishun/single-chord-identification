@@ -1,0 +1,230 @@
+/* ==========================================================================
+   MANUSCRIPT — warm paper, engraved-score typography.
+   Serif type, ink black, a single oxblood accent, staff-line rules.
+   ========================================================================== */
+
+:root {
+  --paper: #f6f0e4;
+  --paper-2: #fbf7ef;
+  --ink: #1f1a16;
+  --ink-soft: #5c5248;
+  --rule: #cdbfa8;
+  --accent: #8c2f2b;
+  --accent-soft: rgba(140, 47, 43, 0.08);
+  color-scheme: light;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 17px;
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.45;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1.5rem 4rem;
+}
+
+body > * { width: 100%; max-width: 1000px; }
+
+/* ---------- Header ---------- */
+.header {
+  padding: 3rem 0 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  padding-bottom: 1.1rem;
+  /* five staff lines under the title */
+  background: repeating-linear-gradient(
+      to bottom,
+      var(--ink) 0 1px,
+      transparent 1px 5px
+    )
+    bottom center / 220px 21px no-repeat;
+}
+
+/* ---------- Settings ---------- */
+.settings-section {
+  columns: 3 260px;
+  column-gap: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+fieldset {
+  break-inside: avoid;
+  border: none;
+  border-top: 1px solid var(--ink);
+  padding: 0.75rem 0 1.25rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1rem;
+}
+
+legend {
+  padding-right: 0.6rem;
+  font-variant: small-caps;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+legend:hover { color: var(--accent); }
+
+.checkbox-input {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.checkbox-input input {
+  appearance: none;
+  width: 0.95rem;
+  height: 0.95rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;          /* open notehead */
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.checkbox-input input:checked {
+  background: var(--ink);       /* filled notehead */
+}
+
+.checkbox-input input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.checkbox-input label {
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+
+.checkbox-input input:checked + label { color: var(--ink); font-weight: 600; }
+.checkbox-input input:not(:checked) + label { color: var(--ink-soft); }
+
+/* Tonic */
+.tonic-container {
+  break-inside: avoid;
+  border-top: 1px solid var(--ink);
+  padding-top: 0.75rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.tonic-label {
+  font-variant: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.06em;
+  font-size: 1.05rem;
+}
+
+.tonic-selection {
+  font: inherit;
+  font-size: 1.05rem;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--ink);
+  padding: 0.1rem 0.25rem;
+  cursor: pointer;
+}
+
+/* ---------- Interaction ---------- */
+.interaction-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding-top: 2rem;
+  border-top: 3px double var(--ink);   /* like a final barline turned sideways */
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  color: var(--ink);
+  background: transparent;
+  transition: background 0.12s, color 0.12s;
+}
+
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.other-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 1.5rem;
+}
+
+.other-btns button {
+  border: none;
+  font-style: italic;
+  font-size: 1.1rem;
+  padding: 0.4rem 0.2rem;
+  border-bottom: 1px solid transparent;
+}
+
+.other-btns button:hover { border-bottom-color: var(--ink); }
+
+.other-btns .random-chord-btn {
+  order: -1;
+  font-style: normal;
+  font-size: 1.2rem;
+  padding: 0.7rem 1.6rem;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.other-btns .random-chord-btn:hover { background: var(--accent); border-color: var(--accent); }
+
+.answer-btns {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.chordBtn {
+  min-width: 5.5rem;
+  padding: 0.8rem 1rem;
+  font-size: 1.5rem;
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+  box-shadow: 0 1px 0 var(--rule);
+}
+
+.chordBtn:hover {
+  border-color: var(--ink);
+  background: var(--accent-soft);
+}
+
+/* ---------- Feedback ---------- */
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  min-height: 4rem;
+}
+
+.msg {
+  font-size: 2rem;
+  font-style: italic;
+  color: var(--accent);
+}
