@@ -1,59 +1,44 @@
 import { Chord } from './chord.js';
-import { Progression } from './progression.js';
 
 export const chords = (function () {
+  // id (see chordId) -> { chord, mode }
   const choices = {};
-  const majorOnly = {};
-  const minorOnly = {};
 
-  const addChord = function (category, name, midi) {
-    const chord = new Chord(midi);
-    choices[name] = chord;
-    if (
-      category === 'major_diatonic' ||
-      category === 'major_inversions' ||
-      category === 'major_secondary_dominants' ||
-      category === 'modal_borrowing_1' ||
-      category === 'modal_borrowing_2' ||
-      category === 'altered_dominants'
-    ) {
-      majorOnly[name] = chord;
-    }
-    if (
-      category === 'minor_diatonic' ||
-      category === 'minor_inversions' ||
-      category === 'minor_secondary_dominants'
-    ) {
-      minorOnly[name] = chord;
-    }
-    console.table({ choices, majorOnly, minorOnly });
+  const majorCategories = [
+    'major_diatonic',
+    'major_inversions',
+    'major_secondary_dominants',
+    'modal_borrowing_1',
+    'modal_borrowing_2',
+    'altered_dominants',
+  ];
+  const minorCategories = [
+    'minor_diatonic',
+    'minor_inversions',
+    'minor_secondary_dominants',
+  ];
+
+  const modeOf = function (category) {
+    if (majorCategories.includes(category)) return 'major';
+    if (minorCategories.includes(category)) return 'minor';
+    // Chords that work in either mode get a random tonicizing context.
+    return ['major', 'minor'][Math.floor(Math.random() * 2)];
+  };
+
+  const addChord = function (id, category, midi) {
+    choices[id] = { chord: new Chord(midi), category };
   };
 
   const getRandomChoice = function () {
-    const chords = Object.keys(choices);
-    const key = chords[Math.floor(Math.random() * chords.length)];
-    return { chord: choices[key], key };
-  };
-
-  const findCategory = function (key) {
-    if (majorOnly.hasOwnProperty(key)) {
-      return 'majorOnly';
-    }
-    if (minorOnly.hasOwnProperty(key)) {
-      return 'minorOnly';
-    }
-    return ['majorOnly', 'minorOnly'][Math.floor(Math.random() * 2)];
+    const ids = Object.keys(choices);
+    const id = ids[Math.floor(Math.random() * ids.length)];
+    const { chord, category } = choices[id];
+    return { chord, id, mode: modeOf(category) };
   };
 
   const clearChoices = function () {
-    for (const key in choices) {
-      delete choices[key];
-    }
-    for (const key in majorOnly) {
-      delete majorOnly[key];
-    }
-    for (const key in minorOnly) {
-      delete minorOnly[key];
+    for (const id in choices) {
+      delete choices[id];
     }
   };
 
@@ -75,11 +60,8 @@ export const chords = (function () {
 
   return {
     choices,
-    majorOnly,
-    minorOnly,
     addChord,
     getRandomChoice,
-    findCategory,
     clearChoices,
     majorTonicizingProgression,
     minorTonicizingProgression,

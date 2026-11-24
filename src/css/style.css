@@ -44,6 +44,20 @@ fieldset label {
   margin-left: 0.5rem;
 }
 
+.chord-label sup {
+  font-size: 0.7em;
+  line-height: 0;
+}
+
+.chord-label .figures {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  font-size: 0.7em;
+  line-height: 0.8;
+  text-align: center;
+}
+
 .header {
   width: 100%;
   display: flex;

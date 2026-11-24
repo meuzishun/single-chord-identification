@@ -1,0 +1,15 @@
+// Chord label markup (see src/js/musicModules/chord-data.js)
+// Superscripts and stacked figures share one size so I6 and I64 match.
+.chord-label sup {
+  font-size: 0.7em;
+  line-height: 0;
+}
+
+.chord-label .figures {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  font-size: 0.7em;
+  line-height: 0.8;
+  text-align: center;
+}
