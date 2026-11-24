@@ -1,5 +1,5 @@
 import { CheckBoxInput } from './components/checkbox-input.js';
-import { chordData } from '../../musicModules/chord-data.js';
+import { chordData, chordId, renderLabel } from '../../musicModules/chord-data.js';
 import { boundEventListeners } from '../bound-event-listeners.js';
 import { interaction } from './interaction.js';
 import { tonicControl } from './components/tonic-control.js';
@@ -32,23 +32,19 @@ export const settings = (function () {
   };
 
   // Create all the checkboxes
-  for (const [key, values] of Object.entries(chordData)) {
+  for (const [category, values] of Object.entries(chordData)) {
     const chordSubCategory = document.createElement('fieldset');
     const legend = document.createElement('legend');
-    legend.textContent = key.replace(/_/g, ' ');
+    legend.textContent = category.replace(/_/g, ' ');
     legend.addEventListener('click', toggleSelectAll);
 
     chordSubCategory.appendChild(legend);
     chordSubCategory.classList.add('chord-sub-category');
-    chordSubCategory.classList.add(key);
+    chordSubCategory.classList.add(category);
 
-    for (const key of Object.keys(values)) {
-      const checkbox = new CheckBoxInput(
-        key.replace(/_of_/g, '/').replace(/_/g, ' ').replace(/aug/, '+'),
-        key,
-        key,
-        key
-      );
+    for (const [key, { label }] of Object.entries(values)) {
+      const id = chordId(category, key);
+      const checkbox = new CheckBoxInput(renderLabel(label), id, id, key, { category });
       chordSubCategory.appendChild(checkbox);
     }
 

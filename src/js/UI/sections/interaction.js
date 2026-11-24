@@ -1,5 +1,5 @@
 import { Button } from './components/button.js';
-import { chordData } from '../../musicModules/chord-data.js';
+import { chordData, chordId, renderLabel } from '../../musicModules/chord-data.js';
 import { boundEventListeners } from '../bound-event-listeners.js';
 import { chords } from '../../musicModules/chords.js';
 import { Piano } from '../../audio-modules/piano-instrument.js';
@@ -33,20 +33,14 @@ export const interaction = (function () {
   };
 
   const registerSelectedBox = function (box) {
-    const category = box.parentElement.parentElement.classList[1];
-    console.log(category);
-    const btnText = box.id.replace(/_of_/g, '/');
-    const btnClasses = `chordBtn, ${box.value}`;
-    const btnData = box.value;
+    const { category } = box.dataset;
+    const key = box.value;
+    const { label, midi } = chordData[category][key];
+    const id = chordId(category, key);
 
-    addButton(btnText, btnClasses, { chord: btnData, category });
+    addButton(renderLabel(label), 'chordBtn', { chord: id, category });
 
-    chords.addChord(category, btnData, chordData[category][btnData].midi);
-  };
-
-  const unregisterUnselectedBox = function (box) {
-    const category = box.parentElement.parentElement.classList[1];
-    console.log(category);
+    chords.addChord(id, category, midi);
   };
 
   const renderBtns = function (checkedBoxes) {
@@ -109,29 +103,21 @@ export const interaction = (function () {
     constantWithLongFinal
   );
 
-  const getRandomVoicing = function () {
-    const chord = chords.getRandomChoice();
-    const voicings = chord.getVoicings();
-    return voicings[Math.floor(Math.random() * voicings.length)];
-  };
-
   const handleBtnClick = function (e) {
     if (e.target.classList.contains('random-chord-btn')) {
       tonic = interpretTonicSelection();
       footer.clearFeedback();
-      const { chord, key } = chords.getRandomChoice();
-      console.log(key);
-      answer = key;
-      const category = chords.findCategory(key);
-      console.log({ answer, category });
-      if (category === 'majorOnly') {
+      const { chord, id, mode } = chords.getRandomChoice();
+      answer = id;
+      console.log({ answer, mode });
+      if (mode === 'major') {
         Piano.sequencer.addSequence(
           'tonicizing-progression',
           new PitchData(chords.majorTonicizingProgression, tonic),
           constantWithLongFinal
         );
       }
-      if (category === 'minorOnly') {
+      if (mode === 'minor') {
         Piano.sequencer.addSequence(
           'tonicizing-progression',
           new PitchData(chords.minorTonicizingProgression, tonic),
@@ -158,12 +144,11 @@ export const interaction = (function () {
     if (e.target.classList.contains('play-tonicization-btn')) {
       Piano.sequencer.playSequence('tonicizing-progression');
     }
-    if (e.target.classList.contains('chordBtn')) {
-      console.log(
-        `The ${e.target.dataset.chord} button in the ${e.target.dataset.category} category was clicked.`
-      );
-      console.log(e.target.dataset.chord === answer);
-      if (e.target.dataset.chord === answer) {
+    // Labels contain <sup> etc., so the click target may be a child element.
+    const chordBtn = e.target.closest('.chordBtn');
+    if (chordBtn) {
+      console.log(`The ${chordBtn.dataset.chord} button was clicked.`);
+      if (chordBtn.dataset.chord === answer) {
         footer.createFeedbackMsg('Correct!');
       } else {
         footer.createFeedbackMsg('Try again...');

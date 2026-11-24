@@ -4,6 +4,7 @@ export class Button {
   #data;
   #elem;
 
+  // `text` may contain static, author-controlled markup (see chord-data.js).
   constructor(text, cls, data) {
     this.#text = text;
     this.#cls = cls;
@@ -14,7 +15,7 @@ export class Button {
 
   #createHTML() {
     this.#elem = document.createElement('button');
-    this.#elem.textContent = this.#text;
+    this.#elem.innerHTML = this.#text;
   }
 
   #addClasses() {
