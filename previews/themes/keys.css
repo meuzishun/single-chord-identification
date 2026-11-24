@@ -1,0 +1,291 @@
+/* ==========================================================================
+   KEYS — bright, playful, piano-inspired.
+   Light canvas, colour-coded chord families, answer buttons as ivory keys,
+   transport controls as ebony keys.
+   ========================================================================== */
+
+:root {
+  --bg: #f3f4f8;
+  --card: #ffffff;
+  --ink: #16181d;
+  --muted: #6b7080;
+  --ebony: #1b1d22;
+  --ivory: #fffdf8;
+  --key-edge: #d8d4ca;
+  --radius: 16px;
+
+  /* family colours */
+  --major: #f59e0b;
+  --minor: #6366f1;
+  --secondary: #10b981;
+  --chromatic: #ec4899;
+  color-scheme: light;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 16px;
+  font-family: 'Avenir Next', 'Nunito', 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1.25rem 3rem;
+}
+
+body > * { width: 100%; max-width: 1120px; }
+
+/* ---------- Header ---------- */
+.header {
+  padding: 2.25rem 0 1.5rem;
+  text-align: center;
+}
+
+.title {
+  display: inline-block;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* little keyboard strip under the title */
+.header::after {
+  content: '';
+  display: block;
+  width: 168px;
+  height: 14px;
+  margin: 0.75rem auto 0;
+  border-radius: 3px;
+  background:
+    linear-gradient(90deg,
+      transparent 0 16px, var(--ebony) 16px 24px, transparent 24px 40px, var(--ebony) 40px 48px,
+      transparent 48px 88px, var(--ebony) 88px 96px, transparent 96px 112px, var(--ebony) 112px 120px,
+      transparent 120px 136px, var(--ebony) 136px 144px, transparent 144px) top / 100% 60% no-repeat,
+    repeating-linear-gradient(90deg, var(--ivory) 0 23px, var(--key-edge) 23px 24px);
+  box-shadow: 0 0 0 1px var(--key-edge);
+}
+
+/* ---------- Settings ---------- */
+.settings-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.25rem;
+}
+
+fieldset {
+  --fam: var(--muted);
+  background: var(--card);
+  border: none;
+  border-radius: var(--radius);
+  border-top: 6px solid var(--fam);
+  padding: 1rem;
+  box-shadow: 0 1px 2px rgba(20, 20, 40, 0.06), 0 4px 16px rgba(20, 20, 40, 0.05);
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 0.45rem;
+}
+
+fieldset.major_diatonic,
+fieldset.major_inversions { --fam: var(--major); }
+
+fieldset.minor_diatonic,
+fieldset.minor_inversions { --fam: var(--minor); }
+
+fieldset.major_secondary_dominants,
+fieldset.minor_secondary_dominants { --fam: var(--secondary); }
+
+fieldset.chromatic_predominants,
+fieldset.altered_dominants { --fam: var(--chromatic); }
+
+legend {
+  float: left;
+  width: 100%;
+  margin-bottom: 0.4rem;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+legend::before {
+  content: '';
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-right: 0.45rem;
+  border-radius: 50%;
+  background: var(--fam);
+}
+
+legend:hover { color: var(--fam); }
+
+.checkbox-input { position: relative; }
+
+.checkbox-input input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.checkbox-input label {
+  display: inline-block;
+  min-width: 2.75rem;
+  text-align: center;
+  padding: 0.35rem 0.7rem;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 2px solid transparent;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, transform 0.08s;
+}
+
+.checkbox-input label:hover { border-color: var(--fam); }
+.checkbox-input label:active { transform: scale(0.95); }
+
+.checkbox-input input:checked + label {
+  background: var(--fam);
+  color: #fff;
+}
+
+.checkbox-input input:focus-visible + label { outline: 3px solid var(--fam); outline-offset: 2px; }
+
+/* Tonic */
+.tonic-container {
+  background: var(--ebony);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.tonic-label { font-weight: 700; }
+
+.tonic-selection {
+  font: inherit;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--ivory);
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+/* ---------- Interaction ---------- */
+.interaction-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.06s, box-shadow 0.06s, background 0.12s;
+}
+
+button:focus-visible { outline: 3px solid var(--minor); outline-offset: 3px; }
+
+/* ebony "transport" keys */
+.other-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.other-btns button {
+  padding: 0.85rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--ebony);
+  border-radius: 12px;
+  box-shadow: 0 5px 0 #000;
+}
+
+.other-btns button:active { transform: translateY(4px); box-shadow: 0 1px 0 #000; }
+
+.other-btns .random-chord-btn {
+  order: -1;
+  background: var(--minor);
+  box-shadow: 0 5px 0 #4338ca;
+  font-size: 1.15rem;
+}
+
+.other-btns .random-chord-btn:active { box-shadow: 0 1px 0 #4338ca; }
+
+/* ivory answer keys */
+.answer-btns {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 12px 12px 0;
+  background: var(--ebony);
+  border-radius: 14px 14px 6px 6px;
+}
+
+.answer-btns:empty { display: none; }
+
+.chordBtn {
+  width: 76px;
+  height: 150px;
+  padding-bottom: 1rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+  background: linear-gradient(to bottom, #eee9df, var(--ivory) 18%);
+  border-radius: 0 0 8px 8px;
+  box-shadow: inset 0 -8px 0 var(--key-edge);
+  margin-bottom: 12px;
+}
+
+.chordBtn:hover { background: linear-gradient(to bottom, #e6e0d3, #fff7e6 18%); }
+
+.chordBtn:active {
+  transform: translateY(3px);
+  box-shadow: inset 0 -3px 0 var(--key-edge);
+}
+
+/* ---------- Feedback ---------- */
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+  min-height: 4rem;
+}
+
+.msg {
+  font-size: 1.75rem;
+  font-weight: 800;
+  padding: 0.6rem 1.75rem;
+  background: var(--card);
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(20, 20, 40, 0.1);
+  animation: keys-bounce 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes keys-bounce {
+  from { transform: translateY(10px) scale(0.85); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
