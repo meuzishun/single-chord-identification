@@ -3,14 +3,24 @@ export class Tone {
   #sampler;
   #soundBuffer;
   #volume;
+  #ended;
 
   constructor(audioBuffer, sampler) {
     this.#sampler = sampler;
     this.#soundBuffer = this.#sampler.getAudioCtx().createBufferSource();
     this.#soundBuffer.buffer = audioBuffer;
+    // Resolves when the source stops (at its scheduled stop() time, not the
+    // end of the mostly-silent sample file).
+    this.#ended = new Promise((resolve) => {
+      this.#soundBuffer.onended = resolve;
+    });
     this.#volume = this.#sampler.getAudioCtx().createGain();
     this.#volume.gain.value = 0;
     this.#soundBuffer.connect(this.#volume).connect(this.#sampler.getGain());
+  }
+
+  getEnded() {
+    return this.#ended;
   }
 
   start(delay) {

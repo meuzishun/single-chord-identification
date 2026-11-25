@@ -48,10 +48,12 @@ export class Sequence {
     this.#scheduleData = scheduleData;
   }
 
+  // Returns a promise that resolves once every tone in the sequence has stopped.
   start() {
     this.#audioEvents = [];
     this.#createAudioEvents();
-    this.#audioEvents.forEach((audioEvent) => audioEvent.init());
+    const tones = this.#audioEvents.flatMap((audioEvent) => audioEvent.init());
+    return Promise.all(tones.map((tone) => tone.getEnded()));
   }
 
   getAudioEvents() {
