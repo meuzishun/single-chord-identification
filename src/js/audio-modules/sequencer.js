@@ -37,7 +37,7 @@ export class Sequencer {
   }
 
   playSequence(name) {
-    this.#sequences[name].start();
+    return this.#sequences[name].start();
   }
 
   getSequences() {

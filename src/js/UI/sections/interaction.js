@@ -103,6 +103,18 @@ export const interaction = (function () {
     constantWithLongFinal
   );
 
+  // Disable the play buttons until the given playback finishes, so a sequence
+  // can't be started again (or layered with another) while one is sounding.
+  const playWithBtnsDisabled = async function (playback) {
+    const playBtns = otherBtns.querySelectorAll('button');
+    playBtns.forEach((btn) => (btn.disabled = true));
+    try {
+      await playback();
+    } finally {
+      playBtns.forEach((btn) => (btn.disabled = false));
+    }
+  };
+
   const handleBtnClick = function (e) {
     if (e.target.classList.contains('random-chord-btn')) {
       tonic = interpretTonicSelection();
@@ -131,18 +143,20 @@ export const interaction = (function () {
       const pitchData = new PitchData([randomVoicing], tonic);
       Piano.sequencer.addSequence('random-choice', pitchData, longHold);
 
-      Piano.sequencer.playSequence('tonicizing-progression');
-      const chordTimer = setTimeout(() => {
-        Piano.sequencer.playSequence('random-choice');
-      }, 5000);
+      playWithBtnsDisabled(async () => {
+        await Piano.sequencer.playSequence('tonicizing-progression');
+        await Piano.sequencer.playSequence('random-choice');
+      });
       return;
     }
     if (e.target.classList.contains('play-again-btn')) {
       console.log('The play again button was clicked');
-      Piano.sequencer.playSequence('random-choice');
+      playWithBtnsDisabled(() => Piano.sequencer.playSequence('random-choice'));
     }
     if (e.target.classList.contains('play-tonicization-btn')) {
-      Piano.sequencer.playSequence('tonicizing-progression');
+      playWithBtnsDisabled(() =>
+        Piano.sequencer.playSequence('tonicizing-progression')
+      );
     }
     // Labels contain <sup> etc., so the click target may be a child element.
     const chordBtn = e.target.closest('.chordBtn');

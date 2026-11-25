@@ -270,3 +270,6 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 /* Chord label markup (see src/js/musicModules/chord-data.js) */
 .chord-label sup { font-size: 0.7em; line-height: 0; }
 .chord-label .figures { display: inline-flex; flex-direction: column; vertical-align: middle; font-size: 0.7em; line-height: 0.8; text-align: center; }
+
+/* Play buttons are disabled while audio is playing. */
+.other-btns button:disabled { opacity: 0.45; pointer-events: none; }
